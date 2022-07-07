@@ -1,0 +1,88 @@
+class Solution {
+public:
+
+ set<string>st;
+
+bool dfs(vector<vector<char>>& board, vector<vector<bool>>&vis,string s,int m,int n,int q,int i,int j){
+    
+ //base case
+ 
+  if(q==s.size())return true;
+ 
+ if(i<0 || j<0 ||i>=m ||j>=n||vis[i][j]==true||board[i][j]!=s[q])return false;
+ 
+
+ vis[i][j]=true;
+
+ if(dfs(board,vis,s,m,n,q+1,i+1,j)==true||
+
+ dfs(board,vis,s,m,n,q+1,i,j+1)==true||
+
+ dfs(board,vis,s,m,n,q+1,i+1,j+1)==true||
+
+ dfs(board,vis,s,m,n,q+1,i-1,j)==true||
+
+ dfs(board,vis,s,m,n,q+1,i,j-1)==true||
+
+ dfs(board,vis,s,m,n,q+1,i-1,j-1)==true||
+
+ dfs(board,vis,s,m,n,q+1,i+1,j-1)==true||
+
+ dfs(board,vis,s,m,n,q+1,i-1,j+1)==true )
+   return true; 
+ 
+   
+ vis[i][j]=false;
+ 
+    return false;
+}
+
+
+
+
+	vector<string> wordBoggle(vector<vector<char> >& board, vector<string>& dict) {
+	   
+	   int m=board.size();
+	   int n=board[0].size();
+	   
+
+	  
+	   
+  for(int k=0;k<dict.size();k++){
+      
+     vector<vector<bool>>vis(m,vector<bool>(n,false));
+     vector<pair<int,int>>pt;
+     string s=dict[k];
+     
+     
+	   for(int i=0;i<m;i++){
+	       for(int j=0;j<n;j++){
+	          if(board[i][j]==s[0])
+	              pt.push_back({i,j});
+	          
+	       }
+	   }
+	   
+  int q=0;
+	for(auto x:pt){
+	    if(dfs(board,vis,s,m,n,q,x.first,x.second))st.insert(s);
+	    q=0;
+	}
+	
+
+  }  
+  
+  
+  vector<string>ans;
+  
+  for(auto x:st)
+    ans.push_back(x);
+	   
+sort(ans.begin(),ans.end());
+
+return ans;
+	}
+	
+};
+
+
