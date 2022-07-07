@@ -1,0 +1,47 @@
+class Solution{
+    public:
+    
+    
+   void solve(int arr[],vector<string>&ans,vector<string>&mapping,string res,int n,int i){
+       
+      //base case
+      if(i>=n){
+          ans.push_back(res);
+          return;
+      }
+      
+    //approach
+    string s=mapping[arr[i]];
+    
+    for(int j=0;j<s.size();j++){
+        res.push_back(s[j]);
+        //recursive call for pick another element from next string
+     solve(arr,ans,mapping,res,n,i+1);
+       //backtrack
+       res.pop_back();
+        
+    }
+       
+       
+   } 
+    
+    
+    vector<string> possibleWords(int arr[], int n){
+      
+      vector<string>ans;
+      if(n==0)return ans;
+      
+      vector<string>mapping={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+      
+      string res="";
+      
+      int i=0;
+      solve(arr,ans,mapping,res,n,i);
+      
+      return ans;
+  
+        
+    }
+    
+    
+};
