@@ -1,0 +1,49 @@
+
+class Solution{
+    public:
+    
+int search(int root,int in[],int n){
+    
+    if(n==0)return 0;
+    if(n==1)return 1;
+   
+   int ans=-1; 
+for(int i=0;i<n;i++){
+    if(in[i]==root){
+        ans=i;
+        break;
+    }
+}
+
+return ans;
+}
+
+
+    bool checktree(int pre[], int in[], int post[], int n) {
+       
+       if(n==0)return true;
+       if(n==1){
+           if(pre[0]==in[0] && post[0]==in[0])return true;
+           else return false;
+       }
+        
+        if(pre[0]!=post[n-1])return false;
+        
+        
+       
+     int k=search(pre[0],in,n);  
+        
+      
+      //check for left
+    bool a= checktree(pre+1,in,post,k);
+      
+      
+      //check for right
+    bool b=checktree(pre+1+k,in+1+k,post+k,n-k-1);
+    
+    
+    return a&&b;
+
+    } 
+    
+};
