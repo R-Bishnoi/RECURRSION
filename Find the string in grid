@@ -1,0 +1,81 @@
+//first bar tum jis direction mai move kr rhe ho usse direction mai aage move krte rhena hai
+
+
+class Solution {
+public:
+
+
+
+bool dfs(vector<vector<char>>&grid,int i,int j,int m,int n,int q,string s,int a,int b){
+    
+    if(q==s.size())return true;
+    
+    if(i<0||j<0||i>=m||j>=n||s[q]!=grid[i][j])return false;
+    
+    
+    if(s[q]==grid[i][j]){
+        return dfs(grid,i+a,j+b,m,n,q+1,s,a,b);
+    }
+        
+    
+  
+  return false;
+}
+
+
+vector<vector<int>>searchWord(vector<vector<char>>grid, string s){
+	   
+	 int m,n;
+	 m=grid.size();
+	 n=grid[0].size();
+
+  vector<int>v;
+vector<vector<int>>ans;	 
+
+vector<int>a={0,1,1,-1,-1,1,-1,0};
+vector<int>b={1,0,1,-1, 1,-1,0,-1};
+
+ 
+ vector<pair<int,int>>pt;
+ 
+ 
+ 
+for(int i=0;i<m;i++){
+    for(int j=0;j<n;j++){
+        if(grid[i][j]==s[0])
+            pt.push_back({i,j});
+        
+    }
+}
+
+
+
+
+for(auto x:pt){
+    int q=1;
+    
+  for(int i=0;i<8;i++){  
+    
+    if(dfs(grid,x.first+a[i],x.second+b[i],m,n,q,s,a[i],b[i])){
+         v.push_back(x.first);
+         v.push_back(x.second);
+         ans.push_back(v);
+         break;
+    }
+    
+  }
+  
+  v.clear();
+    
+}
+
+ 
+ sort(ans.begin(),ans.end());
+ 
+ 
+ return ans;
+	  
+	   
+	}
+	
+};
