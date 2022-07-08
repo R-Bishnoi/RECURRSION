@@ -1,0 +1,41 @@
+class Solution{
+public:
+
+void solve(string in,string out,vector<string>&v){
+    
+    //base case
+    if(in.size()==0){
+        v.push_back(out);
+        return;
+    }
+    
+
+
+  char c=in[0];
+  in.erase(in.begin()+0);
+  
+  //pick the space
+  solve(in,out+' '+c,v);
+  
+  //not pick the space
+  solve(in,out+c,v);
+  
+  return;
+    
+}
+
+
+    vector<string> permutation(string s){
+       
+      string in=s;
+      string out="";
+      
+      out.push_back(in[0]);
+      in.erase(in.begin()+0);
+      
+   vector<string>v;
+  solve(in,out,v);   
+       
+     return v;  
+    }
+};
