@@ -1,4 +1,113 @@
 
+
+//brute force approach or naive approach
+
+  
+class Node{
+    public:
+    int data;
+     Node* left;
+     Node* right;
+    
+  
+  Node(int val){
+      data=val;
+      left=NULL;
+      right=NULL;
+  }
+  
+};
+
+
+
+
+class Solution{
+    public:
+    
+    
+    
+ //postorder check   
+    void postorder(Node* root,vector<int>&v){
+    if(root==NULL)return;
+    
+postorder(root->left,v);
+postorder(root->right,v);
+
+   v.push_back(root->data);
+   
+   return;
+    
+}
+    
+    
+    
+//crete bt using preorder    
+
+
+
+    int id=0;
+Node* solve(int pre[],unordered_map<int,int>&mp,int st,int end,int n){
+    if(st>end||id==n)return NULL;
+    
+  
+    Node* root=new Node(pre[id++]);
+    
+    int mid=mp[root->data];
+    
+    root->left=solve(pre,mp,st,mid-1,n);
+    root->right=solve(pre,mp,mid+1,end,n);
+    
+    return root;
+
+}
+
+
+
+
+
+//checker function  
+
+    bool checktree(int pre[], int in[], int post[], int n) { 
+    
+    unordered_map<int,int>mp;
+    for(int i=0;i<n;i++)
+       mp[in[i]]=i;
+    
+    
+   int st=0,end=n-1;
+
+   Node *root=solve(pre,mp,st,end,n);
+  
+
+    vector<int>v1;
+    vector<int>v2;
+    
+    for(int i=0;i<n;i++)
+       v2.push_back(post[i]);
+   //getting post oredr     
+    postorder(root,v1);
+    
+   if(v1==v2)return true;
+   
+   return false;
+    
+    
+    
+    } 
+
+};
+
+
+
+
+
+
+
+
+
+//optimal approach
+
+
 class Solution{
     public:
     
