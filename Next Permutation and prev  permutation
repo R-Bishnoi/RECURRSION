@@ -1,0 +1,64 @@
+class Solution {
+public:
+    
+    int bs(vector<int>&v,int s,int e,int k){
+        
+       int index=-1;
+        
+        while(e>=s){
+            int mid=s+(e-s)/2;
+            
+            //because string sorted in decresing oreder like 5,4,3,2,1
+          if(k>=v[mid]){
+              e=mid-1;
+          }
+            
+         else{
+             s=mid+1;
+             if(index==-1||v[index]>=v[mid])
+                 index=mid;
+         }
+                 
+        }
+        
+        
+      return index;  
+    }
+    
+    
+    
+    
+    
+    void nextPermutation(vector<int>& v) {
+        
+        
+        //inbuild c++ library
+        //next_permutation(nums.begin(),nums.end());
+        //prev_permutation(nums.begin(),nums.end());
+        
+      vector<int>ans=v;
+        sort(ans.begin(),ans.end());
+        reverse(ans.begin(),ans.end());
+        
+        if(v==ans)
+            reverse(v.begin(),v.end());
+            
+            
+  else{
+      
+      
+   int n=v.size()-1;
+   int i=n-1;     
+    
+        while(i>=0&&v[i]>=v[i+1])--i;
+      
+      int index=bs(v,i+1,n,v[i]);
+  swap(v[i],v[index]);
+      reverse(v.begin()+i+1,v.end());
+      
+        
+      
+  }
+        
+    }
+};
